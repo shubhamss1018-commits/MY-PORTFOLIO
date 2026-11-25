@@ -38,9 +38,12 @@ type Project = {
   category: string;
   title: string;
   description: string;
+  detailsTitle: string;
+  details: string[];
   technologies: string[];
   repository: string;
   live?: string;
+  note?: string;
   credit?: {
     label: string;
     url: string;
@@ -54,7 +57,13 @@ const projects: Project[] = [
     category: "AI / MEDICAL IMAGING",
     title: "Cancer Stage Prediction",
     description:
-      "A deep-learning system that predicts cancer stage and progression risk from histopathology images, with Grad-CAM visual explanations.",
+      "A research prototype that analyzes histopathology images and predicts both cancer stage and progression risk, with visual explanations for model predictions.",
+    detailsTitle: "Model & outputs",
+    details: [
+      "Classifies image patches into five mapped cancer stages and estimates low, medium, or high progression risk.",
+      "Uses transfer learning with ResNet50 or EfficientNet, plus focal loss to address class imbalance.",
+      "Generates Grad-CAM heatmaps, confusion matrices, classification reports, and sample prediction visualizations.",
+    ],
     technologies: [
       "Python",
       "PyTorch",
@@ -65,6 +74,8 @@ const projects: Project[] = [
     ],
     repository:
       "https://github.com/shubhamss1018-commits/Cancer-detection-using-deep-learning-",
+    note:
+      "For research and education only. It is not a substitute for professional medical diagnosis.",
     visual: "cancer-visual",
   },
   {
@@ -72,7 +83,14 @@ const projects: Project[] = [
     category: "FULL-STACK / COMPENSATION DATA",
     title: "CompIntel",
     description:
-      "An India-focused compensation platform for exploring salaries and comparing companies through normalized role levels.",
+      "An India-focused salary explorer designed to make cross-company compensation comparisons more meaningful by comparing normalized role levels instead of job titles alone.",
+    detailsTitle: "Platform features",
+    details: [
+      "Search salary entries by role, company, city, and level; browse company summaries and level breakdowns.",
+      "Compare companies side by side using normalized levels, mapping equivalent roles across organizations.",
+      "Breaks compensation into base, bonus, and stock, with total compensation calculated on the server.",
+      "Supports anonymous salary submissions without requiring an account.",
+    ],
     technologies: [
       "Next.js",
       "TypeScript",
@@ -299,6 +317,19 @@ function App() {
                     <p className="project-category">{project.category}</p>
                     <h3>{project.title}</h3>
                     <p className="project-description">{project.description}</p>
+                    <div className="project-details">
+                      <p className="project-details-title">
+                        {project.detailsTitle}
+                      </p>
+                      <ul>
+                        {project.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    {project.note && (
+                      <p className="project-note">{project.note}</p>
+                    )}
                     <ul
                       className="tag-list project-tags"
                       aria-label={`${project.title} technologies`}
